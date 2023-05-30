@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const UsuarioSchema = mongoose.Schema({
-    nombre:{
+    nombreCompleto:{
         type:String,
         required:true
     },
-    apellidos:{
+    cedula:{
         type:String,
         required:true
     },
@@ -17,6 +17,15 @@ const UsuarioSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    tipoUsuario:{
+        type: String,
+        required: true,
+        enum: [
+            'Empleado',
+            'Cliente'
+        ]
+    }
+    
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);

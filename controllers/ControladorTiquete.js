@@ -3,7 +3,16 @@ const Tiquete = require('../models/Tiquete');
 const getAll = async (req, res) =>{
     try {
         
-        const response = await Tiquete.find();
+        const response = await Tiquete.find().populate([
+            {
+                path: 'suscripcion',
+                select: 'tipoSuscripcion precio beneficios'
+            },
+            {
+                path: 'vehiculo',
+                select: 'placa tipo'
+            }
+        ]);
         res.status(200).send(response);
 
     } catch (error) {
@@ -17,7 +26,16 @@ const getById = async (req, res) =>{
         
         const { id } = req.params;
 
-        const response = await Tiquete.findById({ _id : id })
+        const response = await Tiquete.findById({ _id : id }).populate([
+            {
+                path: 'suscripcion',
+                select: 'tipoSuscripcion precio beneficios'
+            },
+            {
+                path: 'vehiculo',
+                select: 'placa tipo'
+            }
+        ]);
 
         res.status(200).send(response);
 
@@ -37,9 +55,11 @@ const create = async (req, res) => {
         let tiquete = new Tiquete();
         
         tiquete.codigoFactura = req.body.codigoFactura;
-        tiquete.copiaFactura = req.body.copiaFactura;
-        tiquete.fecha = req.body.fecha;
+        tiquete.horaEntrada = req.body.horaEntrada;
+        tiquete.horaSalida = req.body.horaSalida;
         tiquete.suscripcion = req.body.suscripcion;
+        tiquete.vehiculo = req.body.vehiculo;
+        tiquete.celda = req.body.celda;
 
         tiquete =  await tiquete.save();
 
@@ -59,15 +79,17 @@ const update = async(req, res) => {
         let tiqueteEncontrado = await Tiquete.findById({ _id : id });
         if(!tiqueteEncontrado) { return res.status(404).json({mjs: "Tiquete no encontrado"}) }
 
-        const {  codigoFactura, copiaFactura, fecha, suscripcion } = req.body;
+        const {  codigoFactura, horaEntrada, horaSalida, suscripcion, vehiculo, celda } = req.body; //revisar suscripcion
 
         let tiqueteExiste = await Tiquete.findOne({ codigoFactura : codigoFactura, _id: { $ne : id } });
         if(tiqueteExiste) { return res.status(404).json({mjs: "El tiquete ya existe"}) }
 
         tiqueteEncontrado.codigoFactura = codigoFactura;
-        tiqueteEncontrado.copiaFactura = copiaFactura;
-        tiqueteEncontrado.fecha = fecha;
+        tiqueteEncontrado.horaEntrada = horaEntrada;
+        tiqueteEncontrado.horaSalida = horaSalida;
         tiqueteEncontrado.suscripcion = suscripcion;
+        tiqueteEncontrado.vehiculo = vehiculo;
+        tiqueteEncontrado.celda = celda;
 
         tiqueteEncontrado = await tiqueteEncontrado.save();
 

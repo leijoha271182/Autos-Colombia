@@ -1,33 +1,21 @@
 const mongoose = require('mongoose');
 
 const VehiculoSchema = mongoose.Schema({
-    nroPlaca:{
+    placa:{
         type:String,
         required:true
     },
-    modelo:{
+    tipo:{
         type:String,
-        required:true
-    },
-    horaEntrada:{
-        type:Date,
-        required:true
-    },
-    horaSalida:{
-        type:Date,
-        required:true
-    },
-    tiquete:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Tiquete',
-        required:true
-    },
-    celda:{
-        type:Number,
-        required:true
+        required:true,
+        enum:[
+            'Moto',
+            'Carro'
+        ]
     },
     usuario:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Usuario',
         required:true
     }
 

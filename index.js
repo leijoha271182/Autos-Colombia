@@ -1,15 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config(); 
 const methodOverride = require('method-override');
+const { getConnection } = require('./config/BD')
 
 //Rutas
-const tiquete = require('./routes/RutaTiquete');
-const vehiculo = require('./routes/RutaVehiculo');
-const suscripcion = require('./routes/RutaSuscripcion');
-const usuario = require('./routes/RutaUsuario');
-const cliente = require('./routes/RutaCliente');
-const empleado = require('./routes/RutaEmpleado');
+const tiquete = require('./routes/routes/RutaTiquete');
+const vehiculo = require('./routes/routes/RutaVehiculo');
+const suscripcion = require('./routes/routes/RutaSuscripcion');
+const usuario = require('./routes/routes/RutaUsuario');
+
 
 //Conexion a BD
 const BD = require('./config/BD');
@@ -17,12 +18,10 @@ const Tiquete = require('./models/Tiquete');
 const Vehiculo = require('./models/Vehiculo');
 const Suscripcion = require('./models/Suscripcion');
 const Usuario = require('./models/Usuario');
-const Cliente = require('./models/Cliente');
-const Empleado = require('./models/Empleado');
 
 //Inicializar importaciones
 const app = express();
-BD();
+getConnection();
 
 
 //Middlewares
@@ -42,11 +41,11 @@ app.use('/api', tiquete);
 app.use('/api', vehiculo);
 app.use('/api', suscripcion);
 app.use('/api', usuario);
-app.use('/api', cliente);
-app.use('/api', empleado);
 
 //Setup 
 const PORT = process.env.PORT || 4000
+
 app.listen(PORT, () => {
-  console.log('Application stated in port: ', PORT);
+  console.log('API REST corriendo en el puerto: ', PORT);
 })
+

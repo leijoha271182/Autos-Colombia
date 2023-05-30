@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const ControladorSuscripcion = require('../controllers/ControladorSuscripcion');
+const ControladorSuscripcion = require('../../controllers/ControladorSuscripcion');
 
 router.route('/suscripcion')
     .get(ControladorSuscripcion.getAll)

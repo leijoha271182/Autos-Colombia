@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const ControladorTiquete = require('../controllers/ControladorTiquete');
+const ControladorTiquete = require('../../controllers/ControladorTiquete');
 
 router.route('/tiquete')
     .get(ControladorTiquete.getAll)
