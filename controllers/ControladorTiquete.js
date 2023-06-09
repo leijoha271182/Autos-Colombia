@@ -56,7 +56,6 @@ const create = async (req, res) => {
         
         tiquete.codigoFactura = req.body.codigoFactura;
         tiquete.horaEntrada = req.body.horaEntrada;
-        tiquete.horaSalida = req.body.horaSalida;
         tiquete.suscripcion = req.body.suscripcion;
         tiquete.vehiculo = req.body.vehiculo;
         tiquete.celda = req.body.celda;
@@ -79,14 +78,13 @@ const update = async(req, res) => {
         let tiqueteEncontrado = await Tiquete.findById({ _id : id });
         if(!tiqueteEncontrado) { return res.status(404).json({mjs: "Tiquete no encontrado"}) }
 
-        const {  codigoFactura, horaEntrada, horaSalida, suscripcion, vehiculo, celda } = req.body; //revisar suscripcion
+        const {  codigoFactura, horaEntrada, suscripcion, vehiculo, celda } = req.body; //revisar suscripcion
 
         let tiqueteExiste = await Tiquete.findOne({ codigoFactura : codigoFactura, _id: { $ne : id } });
         if(tiqueteExiste) { return res.status(404).json({mjs: "El tiquete ya existe"}) }
 
         tiqueteEncontrado.codigoFactura = codigoFactura;
         tiqueteEncontrado.horaEntrada = horaEntrada;
-        tiqueteEncontrado.horaSalida = horaSalida;
         tiqueteEncontrado.suscripcion = suscripcion;
         tiqueteEncontrado.vehiculo = vehiculo;
         tiqueteEncontrado.celda = celda;

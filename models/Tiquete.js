@@ -9,10 +9,6 @@ const TiqueteSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    horaSalida:{
-        type:String,
-        required:true
-    },
     suscripcion:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Suscripcion',

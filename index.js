@@ -10,6 +10,8 @@ const tiquete = require('./routes/routes/RutaTiquete');
 const vehiculo = require('./routes/routes/RutaVehiculo');
 const suscripcion = require('./routes/routes/RutaSuscripcion');
 const usuario = require('./routes/routes/RutaUsuario');
+const tarifa = require('./routes/routes/RutaTarifa');
+const factura = require('./routes/routes/RutaFactura');
 
 
 //Conexion a BD
@@ -18,6 +20,8 @@ const Tiquete = require('./models/Tiquete');
 const Vehiculo = require('./models/Vehiculo');
 const Suscripcion = require('./models/Suscripcion');
 const Usuario = require('./models/Usuario');
+const Tarifa = require('./models/Tarifas');
+const Factura = require('./models/Factura');
 
 //Inicializar importaciones
 const app = express();
@@ -41,6 +45,8 @@ app.use('/api', tiquete);
 app.use('/api', vehiculo);
 app.use('/api', suscripcion);
 app.use('/api', usuario);
+app.use('/api', tarifa);
+app.use('/api', factura);
 
 //Setup 
 const PORT = process.env.PORT || 4000
